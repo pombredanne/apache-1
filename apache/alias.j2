@@ -1,0 +1,7 @@
+    %for a in site.alias
+    %if a.regex
+    AliasMatch {{a.from}} {{a.to}}
+    %else
+    Alias {{a.from}} {{a.to}}
+    %endif
+    %endfor

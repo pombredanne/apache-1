@@ -1,0 +1,33 @@
+include "apache/module.yay"
+
+yaybu:
+    searchpath:
+        - .
+
+apache:
+    extend sites:
+        - name: www.example.com
+          log:
+            access: /var/log/apache2/example.log
+            error: /var/log/apache2/example_error.log
+          ssl:
+            enabled: true
+            certificate: /etc/ssl/certs/foo.crt
+            key: /etc/ssl/private/foo.key
+          alias:
+            - from: /foo
+              to: /bar
+            - from: ^/icons(.*)
+              to: /usr/local/apache$1
+              regex: true
+
+new Provisioner as instance:
+    new Compute as server:
+        driver:
+            id: VMWARE
+        image: http://yaybu.com/library/ubuntu-12.04.3-server-amd64.zip
+        user: ubuntu
+        password: password
+        name: testing
+    resources: {{resources}}
+

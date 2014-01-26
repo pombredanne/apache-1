@@ -1,0 +1,16 @@
+
+apache:
+    sites: []
+    modules: []
+
+include "apache/alias.yay"
+include "apache/ssl.yay"
+
+extend resources:
+    for site in apache.sites:
+        - File:
+            name: {{site.name}}.conf
+            template: apache/vhost.j2
+            template_args:
+                site: {{site}}
+                includes: {{apache.modules}}

@@ -1,0 +1,19 @@
+<VirtualHost {{site.interface|default('*')}}:{{site.port|default('80')}}>
+    ServerName {{site.name}}
+    %if server_admin
+    ServerAdmin {{site.admin}}
+    %endif
+    ErrorLog {{site.log.error|default('/var/log/apache2/' + site.name + '_error_log')}}
+    %if site.server_alias
+    %for a in site.server_alias
+    ServerAlias {{a}}
+    %endfor
+    %endif
+    %if site.timeout
+    TimeOut {{site.timeout}}
+    %endif
+    %for inc in includes
+    %include inc
+    %endfor
+</VirtualHost>
+

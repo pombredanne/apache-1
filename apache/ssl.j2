@@ -1,0 +1,9 @@
+    %if site.ssl.enabled
+    SSLEngine On
+    SSLCertificateFile {{site.ssl.certificate}}
+    SSLCertificateKeyFile {{site.ssl.key}}
+    %if site.ssl.chain
+    SSLCertificateChainFile {{site.ssl.chain}}
+    %endif
+    %endif
+
